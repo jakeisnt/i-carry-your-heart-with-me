@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/telescopic-text/lib/index.js"></script>
+  <link
+    href="https://unpkg.com/telescopic-text/lib/index.css"
+    rel="stylesheet"
+  />
+  <title>i carry your heart with me</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div id="text-container">
+    <figure>
+    </figure>
+    <h2>[i carry your heart with me (i carry it in]</h2>
+    <div id="text-container-inner"></div>
+    <p class="signoff">- e. e. cummings</p>
+  </div>
+
+  <script>
+  const poem = [
+    { text: "i carry your heart with me", expand: "(i carry it in my heart)" },
+    { text: "i am never without it", expand: "(anywhere i go you go,my dear;and whatever is done by only me is your doing,my darling)"},
+    { text: "i fear" },
+    { text: "no fate", expand: "(for you are my fate,my sweet)"},
+    { text: "i want no world", expand: "(for beautiful you are my world, my true)"},
+    { text: "and it's you are whatever a moon has always meant"},
+    { text: "and whatever a sun will always sing is you"},
+    { text: "here is the deepest secret nobody knows",
+      expand: [
+      "(here is the root of the root and the bud of the bud",
+      "and the sky of the sky of a tree called life;",
+      "which grows higher than soul cah hope or mind can hide)",
+    ]},
+    { text: "and this is the wonder that's keeping the stars apart"},
+    { text: "i carry your heart", expand: "(i carry it in my heart)" }
+];
+
+const renderPoem = (poem) => {
+  let newNode = document.createElement("p");
+
+  poem.forEach(({ text, expand }) => {
+    const node = document.createElement("span");
+    node.appendChild(document.createTextNode(text));
+    node.appendChild(document.createTextNode(expand));
+    newNode.appendChild(node);
+  })
+
+  return newNode;
+}
+
+const container = document.getElementById("text-container-inner");
+container.appendChild(renderPoem(poem));
+</script>
+</body>
+<style>
+body {
+  background: #ede8e4;
+}
+
+#text-container {
+  color: #141312;
+  margin: 10vh 35vw;
+  font-size: 1.3rem;
+  line-height: 2.5rem;
+  font-family: "Libre Baskerville", serif;
+}
+
+img {
+  width: 100%;
+  border-radius: 2px;
+  border: 2px solid #1c1716;
+  box-shadow: 5px 5px 41px 11px rgba(0, 0, 0, 0.4);
+}
+
+figure {
+  margin: 0 0 3vh;
+}
+
+figure > figcaption {
+  font-size: 1rem;
+  text-align: right;
+  font-style: italic;
+  opacity: 0.6;
+}
+
+@media only screen and (max-width: 1600px) {
+  #text-container {
+    margin: 10vh 20vw;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  #text-container {
+    margin: 10vh 5vw;
+  }
+}
+
+:root {
+  --telescope-highlight: #95abe655;
+  --telescope-highlight-hover: #95abe699;
+  --telescope-text-color: #1f2021;
+}
+
+.signoff {
+  font-size: 1rem;
+}
+</style>
