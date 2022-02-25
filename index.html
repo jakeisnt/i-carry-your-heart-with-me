@@ -23,10 +23,15 @@
     <p class="signoff">- e. e. cummings</p>
   </div>
 
+
   <script>
+  // line break
+  // type Poem = { text: string; expand?: (Poem | string | BREAK)[], }
+  const BREAK = "\r\n";
+
   const poem = [
-    { text: "i carry your heart with me", expand: "(i carry it in my heart)" },
-    { text: "i am never without it", expand: "(anywhere i go you go,my dear;and whatever is done by only me is your doing,my darling)"},
+    { text: "i carry your heart with me", expand: ["(i carry it in", BREAK, "my heart)"] },
+    { text: "i am never without it", expand: ["(anywhere", BREAK, "i go you go,my dear;and whatever is done by only me is your doing,my darling)"]},
     { text: "i fear" },
     { text: "no fate", expand: "(for you are my fate,my sweet)"},
     { text: "i want no world", expand: "(for beautiful you are my world, my true)"},
@@ -48,7 +53,7 @@ const renderPoem = (poem) => {
   poem.forEach(({ text, expand }) => {
     const node = document.createElement("span");
     node.appendChild(document.createTextNode(text));
-    node.appendChild(document.createTextNode(expand));
+    if (expand) node.appendChild(document.createTextNode(expand));
     newNode.appendChild(node);
   })
 
