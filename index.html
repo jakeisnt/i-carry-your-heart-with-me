@@ -18,7 +18,7 @@
   <div id="text-container">
     <figure>
     </figure>
-    <h2 class="title">[i carry your heart with me <div class="fadeIn">(i carry it in]<div></h2>
+    <h2 class="title"><span class="bracket">[</span>i carry your heart with me <div class="fadeIn">(i carry it in<span class="bracket">]</span><div></h2>
     <div id="text-container-inner"></div>
     <p class="signoff">- e. e. cummings</p>
   </div>
@@ -145,8 +145,18 @@ figure > figcaption {
   100% {opacity: 0.5;}
 }
 
+@keyframes bracketIn {
+  0% {opacity: 0.1;}
+  100% {opacity: 0.8;}
+}
+
+.bracket {
+  animation: bracketIn linear 2s;
+  color: red;
+}
+
 .fadeIn {
-  animation: fadeIn linear 2s;
+  animation: fadeIn linear 1s;
   opacity: 0.5;
 }
 </style>
