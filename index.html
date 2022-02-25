@@ -18,7 +18,7 @@
   <div id="text-container">
     <figure>
     </figure>
-    <h2>[i carry your heart with me (i carry it in]</h2>
+    <h2 class="title">[i carry your heart with me <span class="fadeIn">(i carry it in<span>]</h2>
     <div id="text-container-inner"></div>
     <p class="signoff">- e. e. cummings</p>
   </div>
@@ -105,6 +105,9 @@ figure > figcaption {
   #text-container {
     margin: 10vh 5vw;
   }
+  .title {
+    font-size: 28px;
+  }
 }
 
 :root {
@@ -115,5 +118,15 @@ figure > figcaption {
 
 .signoff {
   font-size: 1rem;
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+.fadeIn {
+  transition: opacity 2s;
+  animation: fadeIn linear 2s;
 }
 </style>
