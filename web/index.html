@@ -63,7 +63,7 @@ const poem = [
   { text: "i carry your heart with me", expand: ["(i carry it in", BREAK, "my heart)"] },
   { text: "i am never without it", expand: ["(anywhere", BREAK, "i go you go,my dear;and whatever is done", BREAK, "by only me is your doing,my darling)", BREAK]},
   { text: [". . . . . . . . . . . . . . . . . . . . . . . . . . . i fear", BREAK, "no fate"],
-    expand: ["(for ", { text: "you are my fate", emotion: "happy" }, ",my sweet)"] },
+    expand: ["(for ", { text: "you are my fate", emotion: "happy" }, " ,my sweet)"] },
   { text: ["i want", BREAK, { emotion: 'sad', text: "no world" }], expand: ["(for ", { text: "beautiful", emotion: "happy" }, " you are my world, my true)", BREAK]},
   { text: ["and it's you are whatever a moon has always meant", BREAK]},
   { text: ["and whatever a sun will always sing is you", BREAK]},
@@ -93,10 +93,11 @@ const renderPoem = (poem) => {
           parent.appendChild(curChild);
           curChild = document.createElement("div")
         } else if (msg instanceof Object) {
-          let colorChild = document.createElement("span")
-          colorChild.appendChild(document.createTextNode(msg.text))
-          EmotionElements[msg.emotion].push(colorChild)
+          let colorChild = document.createElement("span");
+          colorChild.appendChild(document.createTextNode(msg.text));
+          EmotionElements[msg.emotion].push(colorChild);
           curChild.appendChild(colorChild);
+          colorChild.classList.add("specialColor");
         } else {
           curChild.appendChild(document.createTextNode(msg));
         }
@@ -241,55 +242,42 @@ body {
   font-size: 1rem;
 }
 
+.specialColor {
+  transition: color 1s, font-size 1.5s;
+}
+
 .emotion_black {
   color: lightgray;
-  transition: color 1s;
+  font-size: 22px;
+  transition: color 1s, font-size 1.5s;
 }
 
 .emotion_green {
   color: green;
-  transition: color 1s;
+  font-size: 22px;
+  transition: color 1s, font-size 1.5s;
 }
 
 .emotion_red {
   color: red;
-  transition: color 1s;
+  font-size: 22px;
+  transition: color 1s, font-size 1.5s;
 }
 
 .emotion_blue {
   color: blue;
-  transition: color 1s;
+  font-size: 22px;
+  transition: color 1s, font-size 1.5s;
 }
 
-/* @keyframes emotion_green { */
-/*   from { color: var(--telescope-text-color); } */
-/*   to { color: green; } */
-/* } */
-/**/
-/* @keyframes emotion_black { */
-/*   from { color: var(--telescope-text-color); } */
-/*   to { color: gray; } */
-/* } */
-/**/
-/**/
-/* @keyframes emotion_red { */
-/*   from { color: var(--telescope-text-color); } */
-/*   to { color: red; } */
-/* } */
-/**/
-/* @keyframes emotion_blue { */
-/*   from { color: var(--telescope-text-color); } */
-/*   to { color: blue; } */
-/* } */
-
 @keyframes fadeIn {
-0% {opacity: 0.1;}
-100% {opacity: 0.5;}
+  0% {opacity: 0.1;}
+  100% {opacity: 0.5;}
 }
 
 @keyframes bracketIn {
-0% {opacity: 0.1;}
-100% {opacity: 0.8;}
+  0% {opacity: 0.1;}
+  100% {opacity: 0.8;}
 }
 
 .bracket {
