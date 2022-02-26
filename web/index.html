@@ -38,6 +38,9 @@
 const allEmotions = ['sad', 'angry', 'disgust', 'fear', 'happy', 'surprise', 'neutral']
 const positiveEmotions = ['happy', 'surprise', 'neutral']
 
+
+const EmotionElements =  Object.assign({}, ...Object.entries({ ...allEmotions }).map(([a,b]) => ({ [b]: [] })))
+
 const getEmotionColor = (emotion) => {
   if (emotion in ['angry, disgust']) {
     return 'red';
@@ -60,7 +63,7 @@ const poem = [
   { text: "i carry your heart with me", expand: ["(i carry it in", BREAK, "my heart)"] },
   { text: "i am never without it", expand: ["(anywhere", BREAK, "i go you go,my dear;and whatever is done", BREAK, "by only me is your doing,my darling)", BREAK]},
   { text: [". . . . . . . . . . . . . . . . . . . . . . . . . . . i fear", BREAK, "no fate"], expand: "(for you are my fate,my sweet)"},
-  { text: ["i want", BREAK, { emotion: 'sad', text: "no world" }], expand: ["(for", { text: "beautiful", emotion: "happy" }, "you are my world, my true)", BREAK]},
+  { text: ["i want", BREAK, { emotion: 'sad', text: "no world" }], expand: ["(for ", { text: "beautiful", emotion: "happy" }, " you are my world, my true)", BREAK]},
   { text: ["and it's you are whatever a moon has always meant", BREAK]},
   { text: ["and whatever a sun will always sing is you", BREAK]},
   { text: [BREAK]},
@@ -77,6 +80,7 @@ const poem = [
   { text: "i carry your heart", expand: "(i carry it in my heart)" }
 ];
 
+
 const renderPoem = (poem) => {
   let parent = document.createElement("p");
   let curChild = document.createElement("div");
@@ -90,7 +94,7 @@ const renderPoem = (poem) => {
         } else if (msg instanceof Object) {
           let colorChild = document.createElement("span")
           colorChild.appendChild(document.createTextNode(msg.text))
-          colorChild.className += `emotion_${getEmotionColor(msg.text)}`
+          EmotionElements[msg.emotion].push(colorChild)
           curChild.appendChild(colorChild);
         } else {
           curChild.appendChild(document.createTextNode(msg));
@@ -127,6 +131,25 @@ const getDominantEmotion = (emotions) => {
   return emotions[emotionRatings.indexOf(maxEmotion)].emotion;
 }
 
+// color the tags affiliated with a particular emotion
+const colorEmotion = (curEmotion) => {
+  Object.keys(EmotionElements).forEach((emotion) => {
+    if (curEmotion === emotion) {
+      console.log(EmotionElements);
+      EmotionElements[emotion].forEach((elem) => {
+        console.log(`adding emotion to elem ${emotion}`)
+        console.log(elem)
+        elem.classList.add(`emotion_${getEmotionColor(emotion)}`);
+      })
+    } else {
+      console.log("removing emotion elem")
+      EmotionElements[emotion].forEach((elem) => {
+        elem.classList.remove(`emotion_${getEmotionColor(emotion)}`);
+      })
+    }
+  })
+}
+
 function human() {
   const human = new Human.Human({ backend: 'webgl' })
   let i = 0;
@@ -149,14 +172,16 @@ function human() {
             bad += kind.score
           }
         })
-        console.log(result.face[0].emotion)
-        console.log(getDominantEmotion(result.face[0].emotion))
-        const overall = good - bad
-        console.log(overall)
+
+        const domEmotion = getDominantEmotion(result.face[0].emotion);
+        console.log(domEmotion);
+        colorEmotion(domEmotion);
+        const overall = good - bad;
+        console.log(overall);
       }
-      context.clearRect(0, 0, outputCanvas.width, outputCanvas.height)
+      context.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
     }
-    requestAnimationFrame(detectVideo)
+    requestAnimationFrame(detectVideo);
   }
 
   detectVideo();
@@ -215,6 +240,10 @@ body {
 
 .signoff {
   font-size: 1rem;
+}
+
+.emotion_black {
+  color: blue;
 }
 
 @keyframes fadeIn {
