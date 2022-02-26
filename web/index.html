@@ -27,21 +27,40 @@
 
 // inspo https://github.com/healeycodes/if-sad-send-cat/blob/main/web/index.html
 // TODO:
-// 1. declare which words to highlight with different moods
-// 2. decide what color each should be
 // 3. fade all of the words with a color when the emotion is expressed; add a slight delay between them so the page gradually gets those words
 // 4. fix styles on mobile - text should be much larger. make sure page is responsive.
 // 5. networking??? (TODO) screen pulses with other peoples feelings, and words grow slightly larger in size corresponding to the emotions
 
 // line break
 // type Poem = { text: string; expand?: (Poem | string | BREAK)[], }
+
+
+const allEmotions = ['sad', 'angry', 'disgust', 'fear', 'happy', 'surprise', 'neutral']
+const positiveEmotions = ['happy', 'surprise', 'neutral']
+
+const getEmotionColor = (emotion) => {
+  if (emotion in ['angry, disgust']) {
+    return 'red';
+  }
+
+  if (emotion in ['happy', 'surprise']) {
+    return 'green';
+  }
+
+  if (emotion in ['sad', 'fear']) {
+    return 'blue';
+  }
+
+  return 'black';
+}
+
 const BREAK = "|";
 
 const poem = [
   { text: "i carry your heart with me", expand: ["(i carry it in", BREAK, "my heart)"] },
   { text: "i am never without it", expand: ["(anywhere", BREAK, "i go you go,my dear;and whatever is done", BREAK, "by only me is your doing,my darling)", BREAK]},
   { text: [". . . . . . . . . . . . . . . . . . . . . . . . . . . i fear", BREAK, "no fate"], expand: "(for you are my fate,my sweet)"},
-  { text: ["i want", BREAK, "no world"], expand: ["(for beautiful you are my world, my true)", BREAK]},
+  { text: ["i want", BREAK, { emotion: 'sad', text: "no world" }], expand: ["(for", { text: "beautiful", emotion: "happy" }, "you are my world, my true)", BREAK]},
   { text: ["and it's you are whatever a moon has always meant", BREAK]},
   { text: ["and whatever a sun will always sing is you", BREAK]},
   { text: [BREAK]},
@@ -50,10 +69,10 @@ const poem = [
   { text: ["here is the deepest secret nobody knows", BREAK],
     expand: [
       "(here is the root of the root and the bud of the bud", BREAK,
-      "and the sky of the sky of a tree called life;which grows", BREAK,
+      "and the sky of the sky of ", { emotion: 'surprise', text: "a tree called life" }, ";which grows", BREAK,
       "higher than soul can hope or mind can hide)", BREAK,
     ]},
-  { text: ["and this is the wonder that's keeping the stars apart", BREAK]},
+{ text: ["and this is ", {text: "the wonder", emotion: "surprise" }, " that's keeping the stars apart", BREAK]},
   { text: [". . .", BREAK]},
   { text: "i carry your heart", expand: "(i carry it in my heart)" }
 ];
@@ -68,6 +87,11 @@ const renderPoem = (poem) => {
         if (msg === BREAK) {
           parent.appendChild(curChild);
           curChild = document.createElement("div")
+        } else if (msg instanceof Object) {
+          let colorChild = document.createElement("span")
+          colorChild.appendChild(document.createTextNode(msg.text))
+          colorChild.className += `emotion_${getEmotionColor(msg.text)}`
+          curChild.appendChild(colorChild);
         } else {
           curChild.appendChild(document.createTextNode(msg));
         }
@@ -96,24 +120,11 @@ const outputCanvas = document.querySelector('#view')
 const debugPre = document.querySelector('#debug')
 const context = outputCanvas.getContext('2d')
 
-
-const allEmotions = ['sad', 'angry', 'disgust', 'fear', 'happy', 'surprise', 'neutral']
-const positiveEmotions = ['happy', 'surprise', 'neutral']
-
-const getEmotionColor = (emotion) => {
-  if (emotion in ['angry, disgust']) {
-    return 'red';
-  }
-
-  if (emotion in ['happy', 'surprise']) {
-    return 'green';
-  }
-
-  if (emotion in ['sad', 'fear']) {
-    return 'blue';
-  }
-
-  return 'black';
+// get max of emotions at any given time
+const getDominantEmotion = (emotions) => {
+  const emotionRatings = emotions.map(({ score, emotion }) => score);
+  const maxEmotion = Math.max(...emotionRatings);
+  return emotions[emotionRatings.indexOf(maxEmotion)].emotion;
 }
 
 function human() {
@@ -138,6 +149,8 @@ function human() {
             bad += kind.score
           }
         })
+        console.log(result.face[0].emotion)
+        console.log(getDominantEmotion(result.face[0].emotion))
         const overall = good - bad
         console.log(overall)
       }
