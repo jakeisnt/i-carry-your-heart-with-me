@@ -42,15 +42,15 @@ const positiveEmotions = ['happy', 'surprise', 'neutral']
 const EmotionElements =  Object.assign({}, ...Object.entries({ ...allEmotions }).map(([a,b]) => ({ [b]: [] })))
 
 const getEmotionColor = (emotion) => {
-  if (emotion in ['angry, disgust']) {
+  if (['angry, disgust'].includes(emotion)) {
     return 'red';
   }
 
-  if (emotion in ['happy', 'surprise']) {
+  if (['happy', 'surprise'].includes(emotion)) {
     return 'green';
   }
 
-  if (emotion in ['sad', 'fear']) {
+  if (['sad', 'fear'].includes(emotion)) {
     return 'blue';
   }
 
@@ -62,14 +62,15 @@ const BREAK = "|";
 const poem = [
   { text: "i carry your heart with me", expand: ["(i carry it in", BREAK, "my heart)"] },
   { text: "i am never without it", expand: ["(anywhere", BREAK, "i go you go,my dear;and whatever is done", BREAK, "by only me is your doing,my darling)", BREAK]},
-  { text: [". . . . . . . . . . . . . . . . . . . . . . . . . . . i fear", BREAK, "no fate"], expand: "(for you are my fate,my sweet)"},
+  { text: [". . . . . . . . . . . . . . . . . . . . . . . . . . . i fear", BREAK, "no fate"],
+    expand: ["(for ", { text: "you are my fate", emotion: "happy" }, ",my sweet)"] },
   { text: ["i want", BREAK, { emotion: 'sad', text: "no world" }], expand: ["(for ", { text: "beautiful", emotion: "happy" }, " you are my world, my true)", BREAK]},
   { text: ["and it's you are whatever a moon has always meant", BREAK]},
   { text: ["and whatever a sun will always sing is you", BREAK]},
   { text: [BREAK]},
 
   { text: [". . .", BREAK]},
-  { text: ["here is the deepest secret nobody knows", BREAK],
+  { text: ["here is ", { text: "the deepest secret", emotion: "sad" }, " nobody knows", BREAK],
     expand: [
       "(here is the root of the root and the bud of the bud", BREAK,
       "and the sky of the sky of ", { emotion: 'surprise', text: "a tree called life" }, ";which grows", BREAK,
@@ -135,15 +136,13 @@ const getDominantEmotion = (emotions) => {
 const colorEmotion = (curEmotion) => {
   Object.keys(EmotionElements).forEach((emotion) => {
     if (curEmotion === emotion) {
-      console.log(EmotionElements);
       EmotionElements[emotion].forEach((elem) => {
-        console.log(`adding emotion to elem ${emotion}`)
-        console.log(elem)
+        console.log(`adding ${emotion}`)
         elem.classList.add(`emotion_${getEmotionColor(emotion)}`);
       })
     } else {
-      console.log("removing emotion elem")
       EmotionElements[emotion].forEach((elem) => {
+        console.log(`removing ${emotion}`)
         elem.classList.remove(`emotion_${getEmotionColor(emotion)}`);
       })
     }
@@ -155,7 +154,7 @@ function human() {
   let i = 0;
 
   async function detectVideo() {
-    if (++i % 120 === 0) {
+    if (++i % 240 === 0) {
       // `inputVideo` is a video of a webcam stream
       const result = await human.detect(inputVideo)
       // `result` contains an array of faces along with emotion weights
@@ -243,8 +242,45 @@ body {
 }
 
 .emotion_black {
-  color: blue;
+  color: lightgray;
+  transition: color 1s;
 }
+
+.emotion_green {
+  color: green;
+  transition: color 1s;
+}
+
+.emotion_red {
+  color: red;
+  transition: color 1s;
+}
+
+.emotion_blue {
+  color: blue;
+  transition: color 1s;
+}
+
+/* @keyframes emotion_green { */
+/*   from { color: var(--telescope-text-color); } */
+/*   to { color: green; } */
+/* } */
+/**/
+/* @keyframes emotion_black { */
+/*   from { color: var(--telescope-text-color); } */
+/*   to { color: gray; } */
+/* } */
+/**/
+/**/
+/* @keyframes emotion_red { */
+/*   from { color: var(--telescope-text-color); } */
+/*   to { color: red; } */
+/* } */
+/**/
+/* @keyframes emotion_blue { */
+/*   from { color: var(--telescope-text-color); } */
+/*   to { color: blue; } */
+/* } */
 
 @keyframes fadeIn {
 0% {opacity: 0.1;}
