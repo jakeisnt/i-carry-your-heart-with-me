@@ -1,0 +1,27 @@
+{
+  "name": "i-carry-your-heart-with-me",
+  "version": "0.0.0",
+  "description": "i carry your heart with me",
+  "private": "true",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakeisnt/i-carry-your-heart-with-me.git"
+  },
+  "author": "jakeisnt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jakeisnt/i-carry-your-heart-with-me/issues"
+  },
+  "homepage": "https://github.com/jakeisnt/i-carry-your-heart-with-me#readme",
+  "devDependencies": {
+    "vite": "^2.8.5"
+  },
+  "dependencies": {
+    "@vladmandic/human": "^2.6.3"
+  }
+}
