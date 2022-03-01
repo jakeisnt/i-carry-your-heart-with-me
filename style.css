@@ -24,7 +24,7 @@ body {
     margin: 0 5vw;
   }
   .title {
-    font-size: 28px;
+    font-size: 32px;
   }
 }
 
@@ -39,31 +39,31 @@ body {
 }
 
 .specialColor {
-  transition: color 1s, font-size 1.5s;
+  transition: color 1s, font-size 1s;
 }
 
 .emotion_black {
   color: lightgray;
   font-size: 22px;
-  transition: color 1s, font-size 1.5s;
+  transition: color 1s, font-size 1s;
 }
 
 .emotion_green {
   color: green;
   font-size: 22px;
-  transition: color 1s, font-size 1.5s;
+  transition: color 1s, font-size 1s;
 }
 
 .emotion_red {
   color: red;
   font-size: 22px;
-  transition: color 1s, font-size 1.5s;
+  transition: color 1s, font-size 1s;
 }
 
 .emotion_blue {
   color: blue;
   font-size: 22px;
-  transition: color 1s, font-size 1.5s;
+  transition: color 1s, font-size 1s;
 }
 
 @keyframes fadeIn {
@@ -84,4 +84,17 @@ body {
 .fadeIn {
   animation: fadeIn linear 1s;
   opacity: 0.5;
+}
+
+#emojiList {
+  display: flex;
+  flex-direction: column;
+  font-size: 50px;
+  position: fixed;
+  bottom: -0.5em;
+  right: -0.25em;
+}
+
+.singleEmoji {
+  margin: 0.5em;
 }

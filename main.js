@@ -3,16 +3,30 @@ import './style.css'
 
 // inspo https://github.com/healeycodes/if-sad-send-cat/blob/main/web/index.html
 // TODO:
+// 1. emojis showing current mode
+// 2. flex with screen width
+// 3. label more words
+// 4. deployment
 // 5. networking??? (TODO) screen pulses with other peoples feelings, and words grow slightly larger in size corresponding to the emotions
 
-// line break
 // type Poem = { text: string; expand?: (Poem | string | BREAK)[], }
-
 
 const AllEmotions = ['sad', 'angry', 'disgust', 'fear', 'happy', 'surprise', 'neutral']
 const PositiveEmotions = ['happy', 'surprise', 'neutral']
 
-const EmotionElements =  Object.assign({}, ...Object.entries({ ...AllEmotions }).map(([a,b]) => ({ [b]: [] })))
+// holding html elements for every emotion
+const EmotionElements = Object.assign({}, ...Object.entries({ ...AllEmotions }).map(([a,b]) => ({ [b]: [] })))
+
+// emojis corresponding to each emotion
+const EmotionEmojis = {
+  sad: '😔',
+  angry: '😡',
+  disgust: '🤢',
+  fear: '😨',
+  happy: '😀',
+  surprise:'😯',
+  neutral: '😐',
+}
 
 const getEmotionColor = (emotion) => {
   if (['angry, disgust'].includes(emotion)) {
@@ -123,6 +137,14 @@ const colorEmotion = (curEmotion) => {
     }
   })
 }
+const EmojiList = document.getElementById("emojiList");
+
+const logEmoji = (curEmotion) => {
+  const emoji = document.createElement("div")
+  emoji.classList.add("singleEmoji")
+  emoji.appendChild(document.createTextNode(EmotionEmojis[curEmotion]))
+  EmojiList.appendChild(emoji)
+}
 
 // get the emotion score (positive or negative) associated with someone's expression
 const getEmotionScore = (emotions) => {
@@ -141,14 +163,14 @@ const getEmotionScore = (emotions) => {
   return overall;
 }
 
-function human() {
-  const human = new Human( { modelBasePath: 'models/' })
-// { backend: 'webgl', modelPath: 'file://models.json' }
 
+const human = new Human( { modelBasePath: 'models/' })
+
+function startHuman() {
   let i = 0;
 
   async function detectVideo() {
-    if (++i % 240 === 0) { // every 4 seconds:
+    if (++i % 30 === 0) { // every second:
       // `inputVideo` is a video of a webcam stream
       const result = await human.detect(inputVideo)
 
@@ -160,6 +182,7 @@ function human() {
         const domEmotion = getDominantEmotion(faceEmotions);
         console.log(`dominant emotion: ${domEmotion}`);
         colorEmotion(domEmotion);
+        logEmoji(domEmotion);
       }
       context.clearRect(0, 0, outputCanvas.width, outputCanvas.height);
     }
@@ -175,9 +198,8 @@ window.navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
     inputVideo.play()
   }
   console.log("starting to play")
-  human()
+  startHuman()
 })
   .catch(() => {
-    console.log('missing webcam permissions')
-  })
+    console.log('missing webcam permissions')  })
 
