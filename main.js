@@ -192,14 +192,21 @@ function startHuman() {
   detectVideo();
 }
 
-window.navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
-  inputVideo.srcObject = stream
-  inputVideo.onloadedmetadata = (e) => {
-    inputVideo.play()
-  }
-  console.log("starting to play")
-  startHuman()
-})
-  .catch(() => {
-    console.log('missing webcam permissions')  })
+const startVideo = () => {
+  console.log("starting video!")
+  window.navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+    inputVideo.srcObject = stream
+    inputVideo.onloadedmetadata = (e) => {
+      inputVideo.play()
+    }
+    console.log("starting to play")
+    startHuman()
+  })
+    .catch(() => {
+      console.log('missing webcam permissions')
+    })
+
+};
+
+startVideo()
 
