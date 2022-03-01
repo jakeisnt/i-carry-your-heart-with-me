@@ -142,7 +142,9 @@ const getEmotionScore = (emotions) => {
 }
 
 function human() {
-  const human = new Human.Human({ backend: 'webgl' })
+  const human = new Human( { modelBasePath: 'models/' })
+// { backend: 'webgl', modelPath: 'file://models.json' }
+
   let i = 0;
 
   async function detectVideo() {
