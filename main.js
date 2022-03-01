@@ -1,14 +1,6 @@
 import Human from '@vladmandic/human'
 import './style.css'
 
-// inspo https://github.com/healeycodes/if-sad-send-cat/blob/main/web/index.html
-// TODO:
-// 1. emojis showing current mode
-// 2. flex with screen width
-// 3. label more words
-// 4. deployment
-// 5. networking??? (TODO) screen pulses with other peoples feelings, and words grow slightly larger in size corresponding to the emotions
-
 // type Poem = { text: string; expand?: (Poem | string | BREAK)[], }
 
 const AllEmotions = ['sad', 'angry', 'disgust', 'fear', 'happy', 'surprise', 'neutral']
@@ -28,6 +20,7 @@ const EmotionEmojis = {
   neutral: '😐',
 }
 
+// obtain the color of an emotion from its name
 const getEmotionColor = (emotion) => {
   if (['angry, disgust'].includes(emotion)) {
     return 'red';
@@ -46,6 +39,7 @@ const getEmotionColor = (emotion) => {
 
 const BREAK = "|";
 
+// by e. e. cummings
 const poem = [
   { text: "i carry your heart with me", expand: ["(i carry it in", BREAK, "my heart)"] },
   { text: "i am never without it", expand: ["(anywhere", BREAK, "i go you go,my dear;and whatever is done", BREAK, "by only me is your doing,my darling)", BREAK]},
@@ -68,6 +62,7 @@ const poem = [
   { text: "i carry your heart", expand: "(i carry it in my heart)" }
 ];
 
+// render a poem that follows the format above to a webpage!
 const renderPoem = (poem) => {
   let parent = document.createElement("p");
   let curChild = document.createElement("div");
@@ -107,6 +102,7 @@ const renderPoem = (poem) => {
 const container = document.getElementById("text-container-inner");
 container.appendChild(renderPoem(poem));
 
+// --- video work ---
 
 const inputVideo = document.querySelector('#webcam')
 const outputCanvas = document.querySelector('#view')
@@ -137,8 +133,10 @@ const colorEmotion = (curEmotion) => {
     }
   })
 }
+
 const EmojiList = document.getElementById("emojiList");
 
+// log feeling as an emoji
 const logEmoji = (curEmotion) => {
   const emoji = document.createElement("div")
   emoji.classList.add("singleEmoji")
@@ -166,6 +164,7 @@ const getEmotionScore = (emotions) => {
 
 const human = new Human( { modelBasePath: 'models/' })
 
+// start face detection every half a second
 function startHuman() {
   let i = 0;
 
