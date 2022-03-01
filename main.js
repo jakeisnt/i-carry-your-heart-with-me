@@ -162,7 +162,7 @@ const getEmotionScore = (emotions) => {
 }
 
 
-const human = new Human( { modelBasePath: 'models/', backend: 'webgl'  })
+const human = new Human( { modelBasePath: 'models/' })
 
 // start face detection every half a second
 function startHuman() {
