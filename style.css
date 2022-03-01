@@ -22,7 +22,7 @@ body {
 
 @media only screen and (max-width: 800px) {
   #text-container {
-    margin: 10vh 20vw;
+    margin: 5vh 10vw;
   }
   .title {
     font-size: 32px;
@@ -36,7 +36,8 @@ body {
 }
 
 .signoff {
-  font-size: 1rem;
+  font-style: italic;
+  font-size: 1.25rem;
 }
 
 .specialColor {
