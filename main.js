@@ -199,6 +199,7 @@ const startVideo = () => {
       inputVideo.play()
     }
     console.log("starting to play")
+    document.getElementById("cameraIcon").style.display = "none";
     startHuman()
   })
     .catch(() => {
