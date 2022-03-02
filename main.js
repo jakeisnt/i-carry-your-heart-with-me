@@ -11,13 +11,13 @@ const EmotionElements = Object.assign({}, ...Object.entries({ ...AllEmotions }).
 
 // emojis corresponding to each emotion
 const EmotionEmojis = {
-  sad: '😔',
-  angry: '😡',
-  disgust: '🤢',
-  fear: '😨',
-  happy: '😀',
-  surprise:'😯',
-  neutral: '😐',
+  sad: ': (',
+  angry: '>:(',
+  disgust: ':#',
+  fear: 'D:',
+  happy: ': )',
+  surprise:': O',
+  neutral: ': |',
 }
 
 // obtain the color of an emotion from its name
@@ -136,7 +136,7 @@ const colorEmotion = (curEmotion) => {
 
 const EmojiList = document.getElementById("emojiList");
 
-// log feeling as an emoji
+// log emotion as an emoji
 const logEmoji = (curEmotion) => {
   const emoji = document.createElement("div")
   emoji.classList.add("singleEmoji")
