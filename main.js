@@ -41,25 +41,25 @@ const BREAK = "|";
 
 // by e. e. cummings
 const poem = [
-  { text: "i carry your heart with me", expand: ["(i carry it in", BREAK, "my heart)"] },
-  { text: "i am never without it", expand: ["(anywhere", BREAK, "i go you go,my dear;and whatever is done", BREAK, "by only me is your doing,my darling)", BREAK]},
-  { text: [". . . . . . . . . . . . . . . . . . . . . . . . . . . i fear", BREAK, "no fate"],
+  { text: ["i carry ", { text: "your heart", emotion: "neutral" }, " with me"], expand: ["(i carry it in", BREAK, { text: "my heart", emotion: "happy" }, ")"] },
+  { text: "i am never without it", expand: ["(anywhere", BREAK, { text: "i go you go", emotion: "sad"}, ",my dear;and whatever is done", BREAK, "by only me is your doing,my darling)", BREAK]},
+  { text: [". . . . . . . . . . . . . . . . . . . . . . . . . . . ", { text: "i fear", emotion: "fear" }, BREAK, "no fate"],
     expand: ["(for ", { text: "you are my fate", emotion: "happy" }, " ,my sweet)"] },
   { text: ["i want", BREAK, { emotion: 'sad', text: "no world" }], expand: [" (for ", { text: "beautiful", emotion: "happy" }, " you are my world, my true)", BREAK]},
-  { text: ["and it's you are whatever a moon has always meant", BREAK]},
-  { text: ["and whatever a sun will always sing is you", BREAK]},
+  { text: ["and it's you are ", { text: "whatever a moon", emotion: "sad" }, " has always meant", BREAK]},
+  { text: ["and ", { text: "whatever a sun will always sing is you", emotion: "surprise" }, BREAK]},
   { text: [BREAK]},
 
   { text: [". . .", BREAK]},
   { text: ["here is ", { text: "the deepest secret", emotion: "sad" }, " nobody knows", BREAK],
     expand: [
-      "(here is the root of the root and the bud of the bud", BREAK,
+      "(here is ", { text: "the root of the root", emotion: "neutral" }, "and the bud of the bud", BREAK,
       "and the sky of the sky of ", { emotion: 'surprise', text: "a tree called life" }, ";which grows", BREAK,
-      "higher than soul can hope or mind can hide)", BREAK,
+      { text: "higher than soul", emotion: "happy" }, " can hope or ", { text: "mind can hide", emotion: "sad" }, ")", BREAK,
     ]},
-  { text: ["and this is ", {text: "the wonder", emotion: "surprise" }, " that's keeping the stars apart", BREAK]},
+  { text: ["and this is ", {text: "the wonder", emotion: "surprise" }, " ", { emotion: "disgust", text: "that's keeping the stars apart"}, BREAK]},
   { text: [". . .", BREAK]},
-  { text: "i carry your heart", expand: "(i carry it in my heart)" }
+  { text: ["i carry ", { text: "your heart", emotion: "sad" }], expand: [{ emotion: "happy", text: "(i carry it in my heart)"}] }
 ];
 
 // render a poem that follows the format above to a webpage!

@@ -45,7 +45,7 @@ body {
 }
 
 .emotion_black {
-  color: lightgray;
+  color: gray;
   font-size: 22px;
   transition: color 1s, font-size 1s;
 }
