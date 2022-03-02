@@ -93,18 +93,17 @@ body {
   flex-direction: column;
   font-size: 50px;
   position: fixed;
-  bottom: 3em;
+  bottom: 3.5em;
+  font-size: 28px;
 }
 
 @keyframes emojiIn {
   0%  { margin-bottom: 0; font-size: 0; }
-  100% { margin-bottom: 1em; }
+  100% { margin-bottom: 2em; }
 }
 
 
 .singleEmoji {
-  margin: 1em 0.25em;
+  margin: 2em 1em;
   animation: emojiIn linear 2.1s;
-  /* transform: translateY(-0.5em); */
-  /* transition: font-size 0.5s, transform 0.5s; */
 }
